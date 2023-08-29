@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+    <div class="col-md-6 offset-md-3">
+        <h1>Welcome To Registration Page</h1>
+        <br/>
+        <form method="POST" action="">
+            {% csrf_token %}
+            {% if form.errors %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      The Form Has Some Errors
+                      {% for field in form %}
+                          {% if field.errors %}
+                              {{ field.errors }}
+                          {% endif %}
+                      {% endfor %}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+            {% endif %}
+            {{ form.as_p }}
+              <button type="submit" class="btn btn-secondary">Register</button>
+            </form>
+        </div>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% load static %}
+    {% block content %}
+    <br>
+    <h3>Customer information</h3>
+    <br>
+    <div class="card" style="width: 18rem;">
+        {% if customer.gender == 'M' %}
+        <img class="card-img-top" src="{% static 'images/male.jpg' %}" alt="Card image cap">
+        {% else %}
+        <img class="card-img-top" src="{% static 'images/female.jpg' %}" alt="Card image cap">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{customer.first_name}} {{customer.last_name}}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Country: </strong>{{address.country}}</li>
+          <li class="list-group-item"><strong>City: </strong>{{address.city}}</li>
+          <li class="list-group-item"><strong>State: </strong>{{address.state}}</li>
+          <li class="list-group-item"><strong>Street: </strong>{{address.street}}</li>
+          <li class="list-group-item"><strong>Zipcode: </strong>{{address.zipcode}}</li>
+        </ul>
+        <div class="card-body">
+          <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+          <a href="{% url 'delete' customer.id%}" class="btn btn-danger">Delete</a>
+          <a href="{% url 'update-customer' customer.id%}" class="btn btn-warning">Update</a>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

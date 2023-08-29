@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+    {% if user.is_authenticated %}
+    <h1>Welcome To Spottech CRM System</h1>
+    <br>
+    <div class="d-flex justify-content-between align-items-right mb-3">
+      <h3>Customers list</h3>
+      <a href="{% url 'add-address' %}" class="btn btn-success ml-auto" >Add Address</a>
+    </div>
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Created At</th>
+            <th scope="col">FirstName</th>
+            <th scope="col">LastName</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Membership</th>
+            <th scope="col">Address</th>
+          </tr>
+        </thead>
+        <tbody>
+    {% for customer in customers %}
+          <tr>
+            <td><a href="{% url 'customer-detail' customer.id %}">{{customer.id}}</a></td>
+            <td>{{customer.date_created}}</td>
+            <td>{{customer.first_name}}</td>
+            <td>{{customer.last_name}}</td>
+            <td>{{customer.email}}</td>
+            <td>{{customer.phone}}</td>
+            <td>{{customer.membership}}</td>
+            <td>{{customer.address}}</td>
+          </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    <br>
+    {% else %}
+    <div class = 'col-md-6 offset-md-3'>
+    <br>
+    <h2>Login</h2>
+    <br>
+    <form method="POST" action="{% url 'home' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <input type="text" class="form-control" name= "username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" name= "password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn btn-secondary">Login</button>
+      </form>
+    </div>
+    {% endif %}
+    {% endblock %}
+</body>
+</html>
